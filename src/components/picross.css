@@ -1,0 +1,10 @@
+
+.picross-container {
+    display: flex;
+    margin: auto;
+    margin-top: 5%;
+    height: 70vh;
+    width: 100vh;
+    background-color: cadetblue;
+}
+
