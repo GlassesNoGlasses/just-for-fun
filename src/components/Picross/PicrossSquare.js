@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types'
 import './picrossSquare.css'
 
 function PicrossSquare(props) {
@@ -8,12 +7,11 @@ function PicrossSquare(props) {
 
 
   return (
-    <div className='square' style={{background:color}} onClick={() => {color === 'red' ? setColor('black'): setColor('red')}}>
+    <button className='square' style={{background:color}} onClick={() => {color === 'red' ? setColor('black'): setColor('red')}}>
         boo!
-    </div>
+    </button>
   )
 }
 
-PicrossSquare.propTypes = {}
 
 export default PicrossSquare
