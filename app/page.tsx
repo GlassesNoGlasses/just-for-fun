@@ -12,7 +12,7 @@ export default function Home() {
             Just For Fun
           </h1>
           <div className="flex flex-row gap-12 h-fit w-full align-middle justify-center">
-            <Link href="/login">
+            <Link href="/howcookedami">
               <Collage {...HCAMI} />
             </Link>
           </div>
