@@ -1,4 +1,7 @@
+
 import Link from "next/link";
+import { HCAMI } from "./constants/CollageIcons";
+import { Collage } from "./components/collage/Collage";
 
 export default function Home() {
   return (
@@ -10,7 +13,7 @@ export default function Home() {
           </h1>
           <div className="flex flex-row gap-12 h-fit w-full align-middle justify-center">
             <Link href="/login">
-              Hello
+              <Collage {...HCAMI} />
             </Link>
           </div>
         </div>
