@@ -1,6 +1,6 @@
 
 export interface Assignment {
-    id: number;
+    id?: number;
     title: string;
     userGrade: number;
     maxGrade: number;
