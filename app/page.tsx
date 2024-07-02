@@ -1,6 +1,6 @@
 
 import Link from "next/link";
-import { HCAMI } from "./constants/CollageIcons";
+import { HCAMI, Pedro } from "./constants/CollageIcons";
 import { Collage } from "./components/collage/Collage";
 
 export default function Home() {
@@ -14,6 +14,9 @@ export default function Home() {
           <div className="flex flex-row gap-12 h-fit w-full align-middle justify-center">
             <Link href="/howcookedami">
               <Collage {...HCAMI} />
+            </Link>
+            <Link href="/pedro">
+              <Collage {...Pedro} />
             </Link>
           </div>
         </div>
