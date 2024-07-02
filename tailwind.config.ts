@@ -15,6 +15,20 @@ const config: Config = {
         "chef": "url('/images/kind_chef.jpeg')",
         "pedro": "url('/images/pedro.jpeg')",
       },
+
+      keyframes: {
+        popIn: {
+          "0%": { 'opacity': '0'},
+          "90%": { 'opacity': '0'},
+          "100%": { 'opacity': '1'},
+        },
+      },
+
+      animation: {
+        "pedro-1": "popIn 4s ease-in forwards",
+        "pedro-2": "popIn 4.5s ease-in forwards",
+        "pedro-3": "popIn 6s ease-in forwards",
+      }
     },
   },
   plugins: [],
