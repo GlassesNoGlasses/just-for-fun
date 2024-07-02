@@ -1,24 +1,28 @@
 'use client'
 
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
 
     const [pedro, setPedro] = useState<string>("/images/raccoon.jpg");
     const [fedStatus, setFedStatus] = useState<number>(0);
     const [noStyle, setNoStyle] = useState<string>('opacity-100');
+    const [pedroAudio, setPedroAudio] = useState<string>('');
 
     const handlePedro = (status: number) => {
         setFedStatus(status);
+        const audio = document.getElementById('pedro-audio') as HTMLAudioElement;
 
         switch (status) {
             case 1:
                 setPedro("/gif/PEDRO.gif");
+                setPedroAudio('/sounds/pedro-pedro-pedro.mp4');
                 break;
             case -1:
                 setPedro("/gif/raccoon-sad.gif");
                 setNoStyle('opacity-50');
+                setPedroAudio('/sounds/sad-violin.mp4');
                 break;
             case -2:
                 setNoStyle('opacity-25');
@@ -29,16 +33,18 @@ export default function Home() {
             default:
                 break
         }
-        if (status === 1) {
-        } else {
-            setPedro("/gif/raccoon-sad.gif");
-        }
     }
+
+    useEffect(() => {
+        const audio = document.getElementById('pedro-audio') as HTMLAudioElement;
+        audio.play();
+    }, [pedroAudio])
 
   return (
     <main className="flex h-screen w-screen">
         <div className="flex h-full w-full justify-center align-middle bg-black overflow-y-auto">
             <div className="flex flex-col h-full w-full justify-center align-middle items-center gap-12 overflow-y-auto">
+                <audio className='hidden invisble' id="pedro-audio" loop={true} src={pedroAudio}/>
                 {
                     !fedStatus ?
                     <h1 className="text-3xl font-mono font-bold text-slate-300">
