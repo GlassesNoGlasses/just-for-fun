@@ -5,4 +5,6 @@ export interface Assignment {
     userGrade: number;
     maxGrade: number;
     weight: number;
+    releasedDate: Date;
+    dueDate: Date;
 }
