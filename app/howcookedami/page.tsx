@@ -28,9 +28,13 @@ export default function Home() {
     e.preventDefault();
 
     try {
-      
+      setAssignment({
+        ...assignment,
+        releasedDate: new Date(releasedDate),
+        dueDate: new Date(dueDate),
+      });
     } catch (error) {
-      
+      console.error(error);
     }
   }
 
@@ -72,7 +76,7 @@ export default function Home() {
                       onChange={(event) => setDueDate(event.target.value)}/>
                     </div>
                   </div>
-                  <div className="flex flex-row align-middle justify-evenly">
+                  <div className="flex flex-row align-middle justify-evenly pb-4">
                     <div className="flex flex-row gap-4">
                       <label htmlFor="complete" className="text-sm font-semibold text-gray-700">
                         % Completed: 
@@ -83,15 +87,19 @@ export default function Home() {
                     </div>
                     <div className="flex flex-row gap-4">
                       <label htmlFor="actual-completed" className="text-sm font-semibold text-gray-700">
-                        Actual & Completed: 
+                        Actual % Completed: 
                       </label>
                       <input type="text" name="actual-completed" id="actual-completed"
                       className="w-full text-black px-1 mx-4 border-2 border-gray-300 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
-                      placeholder="Ok really don't lie..."/>
+                      placeholder="Ok, really don't lie..."/>
                     </div>
                   </div>
                 </div>
-                <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                <button type="submit"
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg
+                text-sm sm:w-auto mt-4 px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                  Submit
+                </button>
               </form>
             </div>
           </div>
