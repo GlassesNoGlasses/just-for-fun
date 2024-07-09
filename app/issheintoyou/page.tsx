@@ -1,18 +1,26 @@
 'use client'
 
 import { useState } from "react";
-import ISIYChecklist from "../interfaces/ISIYChecklist";
+import {ISIYChecklist} from "../interfaces/ISIYChecklist";
 
 export default function Home() {
 
     const defaultChecklist: ISIYChecklist = {
         name: '',
-        intoThem: 7,
+        intoThem: -10,
+        eyeContact: false,
+        flirty: false,
+        dates: false,
+        kissed: false,
+        Netflixed: false,
+        couple: false,
+        fiances: false,
+        married: false,
+        kids: false,
     }
 
     const [findOut, setFindOut] = useState<boolean>(false);
     const [checklist, setChecklist] = useState<ISIYChecklist>(defaultChecklist);
-    const [intoThemFeedback, setIntoThemFeedback] = useState<string>('');
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -24,7 +32,7 @@ export default function Home() {
         <main className="h-screen w-screen">
             <div className="flex flex-col h-full w-full bg-main overflow-y-scroll">
                 <div className="flex flex-col gap-8 h-full w-full justify-center align-middle">
-                    <h1 className="text-center text-6xl font-mono underline">Is He/She Into You?</h1>
+                    <h1 className="text-center text-6xl font-mono underline">Is She Into You?</h1>
                     <a href="https://www.youtube.com/@CasuallyExplained" target="_blank">
                         <p className="text-center text-xl font-mono hover:underline">Inspired By Casually Explained</p>
                     </a>
@@ -45,8 +53,9 @@ export default function Home() {
                     <div className="h-fit w-full flex align-middle justify-center 
                     from-main to-pink-500">
                         <div className="flex w-3/4 mx-auto mt-8 bg-white shadow-lg rounded-lg overflow-hidden 
-                        border-black border-4 border-solid">
-                            <form className="py-4 px-6 flex flex-col gap-4 w-full">
+                        border-black border-4 border-solid mb-8">
+                            <form className="py-4 px-6 flex flex-col gap-4 w-full"
+                                onSubmit={handleSubmit}>
                                 <div className="w-full">
                                     <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
                                         POI Name
@@ -54,60 +63,201 @@ export default function Home() {
                                     <input
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                         id="name" type="text" placeholder="Person Of Interest's Name" required={true}
-                                        onChange={(event) => setChecklist(prev => ({...prev, name: event.target.value}))}/>
+                                        onChange={(event) => setChecklist(prev => ({ ...prev, name: event.target.value }))} />
                                 </div>
                                 <div className="w-full">
-                                    <label className="block text-gray-700 font-medium mb-2">Are You Into Them?</label>
+                                    <label className="block text-gray-700 font-medium mb-2">Are You Into Her?</label>
                                     <div className="flex flex-wrap">
                                         <div className="px-2 w-1/3">
                                             <label htmlFor="yes" className="block text-gray-700 font-medium mb-2">
                                                 <input type="radio" id="yes" name="intoThem" value={1} className="mr-2"
-                                                onChange={(event) => setChecklist(prev => ({...prev, intoThem: event.target.valueAsNumber}))}/>Yes
+                                                    onChange={(event) => setChecklist(prev => ({ ...prev, intoThem: Number(event.target.value) }))}
+                                                    required={true}/>Yes
                                             </label>
                                         </div>
                                         <div className="px-2 w-1/3">
                                             <label htmlFor="no" className="block text-gray-700 font-medium mb-2">
                                                 <input type="radio" id="no" name="intoThem" value={0} className="mr-2"
-                                                onChange={(event) => setChecklist(prev => ({...prev, intoThem: event.target.valueAsNumber}))}/>No
+                                                    onChange={(event) => setChecklist(prev => ({ ...prev, intoThem: Number(event.target.value) }))} />No
                                             </label>
                                         </div>
                                         <div className="px-2 w-1/3">
                                             <label htmlFor="cant-tell" className="block text-gray-700 font-medium mb-2">
                                                 <input type="radio" id="cant-tell" name="intoThem" value={-1} className="mr-2"
-                                                onChange={(event) => setChecklist(prev => ({...prev, intoThem: event.target.valueAsNumber}))}/>Can't Tell
+                                                    onChange={(event) => setChecklist(prev => ({ ...prev, intoThem: Number(event.target.value) }))} />Can't Tell
                                             </label>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="w-full">
-                                    <label className="block text-gray-700 font-bold mb-2" htmlFor="date">
-                                        Date
-                                    </label>
-                                    <input
-                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        id="date" type="date" placeholder="Select a date" />
-                                </div>
-                                <div className="mb-4">
-                                    <label className="block text-gray-700 font-bold mb-2" htmlFor="time">
-                                        Time
-                                    </label>
-                                    <input
-                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        id="time" type="time" placeholder="Select a time" />
-                                </div>
-                                <div className="mb-4">
-                                    <label className="block text-gray-700 font-bold mb-2" htmlFor="service">
-                                        Service
-                                    </label>
-                                    <select
-                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        id="service" name="service">
-                                        <option value="">Select a service</option>
-                                        <option value="haircut">Haircut</option>
-                                        <option value="coloring">Coloring</option>
-                                        <option value="styling">Styling</option>
-                                        <option value="facial">Facial</option>
-                                    </select>
+                                {
+                                    checklist.intoThem > 0 &&
+                                    <>
+                                        <div className="w-full">
+                                            <label className="block text-gray-700 font-medium mb-2">Did She Make Eye Contact Twice or More?</label>
+                                            <div className="flex flex-wrap">
+                                                <div className="px-2 w-1/3">
+                                                    <label htmlFor="yes-eyes" className="block text-gray-700 font-medium mb-2">
+                                                        <input type="radio" id="yes-eyes" name="eye-contact" value={1} className="mr-2"
+                                                            onChange={() => setChecklist(prev => ({ ...prev, eyeContact: true }))} />Yes
+                                                    </label>
+                                                </div>
+                                                <div className="px-2 w-1/3">
+                                                    <label htmlFor="no-eyes" className="block text-gray-700 font-medium mb-2">
+                                                        <input type="radio" id="no-eyes" name="eye-contact" value={0} className="mr-2"
+                                                            onChange={() => setChecklist(prev => ({ ...prev, eyeContact: false }))}
+                                                            defaultChecked={true}/>No
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="w-full">
+                                            <label className="block text-gray-700 font-medium mb-2">Is She Flirty With You?</label>
+                                            <div className="flex flex-wrap">
+                                                <div className="px-2 w-1/3">
+                                                    <label htmlFor="yes-flirt" className="block text-gray-700 font-medium mb-2">
+                                                        <input type="radio" id="yes-flirt" name="flirty" value={1} className="mr-2"
+                                                            onChange={() => setChecklist(prev => ({ ...prev, flirty: true }))} />Yes
+                                                    </label>
+                                                </div>
+                                                <div className="px-2 w-1/3">
+                                                    <label htmlFor="no-flirt" className="block text-gray-700 font-medium mb-2">
+                                                        <input type="radio" id="no-flirt" name="flirty" value={0} className="mr-2"
+                                                            onChange={() => setChecklist(prev => ({ ...prev, flirty: false }))}
+                                                            defaultChecked={true}/>No
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="w-full">
+                                            <label className="block text-gray-700 font-medium mb-2">Did You Go On Date(s)?</label>
+                                            <div className="flex flex-wrap">
+                                                <div className="px-2 w-1/3">
+                                                    <label htmlFor="yes-dates" className="block text-gray-700 font-medium mb-2">
+                                                        <input type="radio" id="yes-dates" name="dates" value={1} className="mr-2"
+                                                            onChange={() => setChecklist(prev => ({ ...prev, dates: true }))} />Yes
+                                                    </label>
+                                                </div>
+                                                <div className="px-2 w-1/3">
+                                                    <label htmlFor="no-dates" className="block text-gray-700 font-medium mb-2">
+                                                        <input type="radio" id="no-dates" name="dates" value={0} className="mr-2"
+                                                            onChange={() => setChecklist(prev => ({ ...prev, dates: false }))}
+                                                            defaultChecked={true}/>No
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="w-full">
+                                            <label className="block text-gray-700 font-medium mb-2">Did You Kiss?</label>
+                                            <div className="flex flex-wrap">
+                                                <div className="px-2 w-1/3">
+                                                    <label htmlFor="yes-kiss" className="block text-gray-700 font-medium mb-2">
+                                                        <input type="radio" id="yes-kiss" name="kissed" value={1} className="mr-2"
+                                                            onChange={() => setChecklist(prev => ({ ...prev, kissed: true }))} />Yes
+                                                    </label>
+                                                </div>
+                                                <div className="px-2 w-1/3">
+                                                    <label htmlFor="no-kiss" className="block text-gray-700 font-medium mb-2">
+                                                        <input type="radio" id="no-kiss" name="kissed" value={0} className="mr-2"
+                                                            onChange={() => setChecklist(prev => ({ ...prev, kissed: false }))}
+                                                            defaultChecked={true}/>No
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="w-full">
+                                            <label className="block text-gray-700 font-medium mb-2">Did You Netflix and Chilled, Amazon Primed and Bedtimed, or Study and Got Cuddly?</label>
+                                            <div className="flex flex-wrap">
+                                                <div className="px-2 w-1/3">
+                                                    <label htmlFor="yes-netflixed" className="block text-gray-700 font-medium mb-2">
+                                                        <input type="radio" id="yes-netflixed" name="netflixed" value={1} className="mr-2"
+                                                            onChange={() => setChecklist(prev => ({ ...prev, Netflixed: true }))} />Yes
+                                                    </label>
+                                                </div>
+                                                <div className="px-2 w-1/3">
+                                                    <label htmlFor="no-netflixed" className="block text-gray-700 font-medium mb-2">
+                                                        <input type="radio" id="no-netflixed" name="netflixed" value={0} className="mr-2"
+                                                            onChange={() => setChecklist(prev => ({ ...prev, Netflixed: false }))}
+                                                            defaultChecked={true}/>No
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="w-full">
+                                            <label className="block text-gray-700 font-medium mb-2">Are You A Couple?</label>
+                                            <div className="flex flex-wrap">
+                                                <div className="px-2 w-1/3">
+                                                    <label htmlFor="yes-couple" className="block text-gray-700 font-medium mb-2">
+                                                        <input type="radio" id="yes-couple" name="couple" value={1} className="mr-2"
+                                                            onChange={() => setChecklist(prev => ({ ...prev, couple: true }))} />Yes
+                                                    </label>
+                                                </div>
+                                                <div className="px-2 w-1/3">
+                                                    <label htmlFor="no-couple" className="block text-gray-700 font-medium mb-2">
+                                                        <input type="radio" id="no-couple" name="couple" value={0} className="mr-2"
+                                                            onChange={() => setChecklist(prev => ({ ...prev, couple: false }))}
+                                                            defaultChecked={true}/>No
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="w-full">
+                                            <label className="block text-gray-700 font-medium mb-2">Are You Fiances Or Similar?</label>
+                                            <div className="flex flex-wrap">
+                                                <div className="px-2 w-1/3">
+                                                    <label htmlFor="yes-fiances" className="block text-gray-700 font-medium mb-2">
+                                                        <input type="radio" id="yes-fiances" name="fiances" value={1} className="mr-2"
+                                                            onChange={() => setChecklist(prev => ({ ...prev, fiances: true }))} />Yes
+                                                    </label>
+                                                </div>
+                                                <div className="px-2 w-1/3">
+                                                    <label htmlFor="no-fiances" className="block text-gray-700 font-medium mb-2">
+                                                        <input type="radio" id="no-fiances" name="fiances" value={0} className="mr-2"
+                                                            onChange={() => setChecklist(prev => ({ ...prev, fiances: false }))}
+                                                            defaultChecked={true}/>No
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="w-full">
+                                            <label className="block text-gray-700 font-medium mb-2">Are You Married Or Similar?</label>
+                                            <div className="flex flex-wrap">
+                                                <div className="px-2 w-1/3">
+                                                    <label htmlFor="yes-married" className="block text-gray-700 font-medium mb-2">
+                                                        <input type="radio" id="yes-married" name="married" value={1} className="mr-2"
+                                                            onChange={() => setChecklist(prev => ({ ...prev, married: true }))} />Yes
+                                                    </label>
+                                                </div>
+                                                <div className="px-2 w-1/3">
+                                                    <label htmlFor="no-married" className="block text-gray-700 font-medium mb-2">
+                                                        <input type="radio" id="no-married" name="married" value={0} className="mr-2"
+                                                            onChange={() => setChecklist(prev => ({ ...prev, married: false }))} 
+                                                            defaultChecked={true}/>No
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="w-full">
+                                            <label className="block text-gray-700 font-medium mb-2">Have Kids Together?</label>
+                                            <div className="flex flex-wrap">
+                                                <div className="px-2 w-1/3">
+                                                    <label htmlFor="yes-kids" className="block text-gray-700 font-medium mb-2">
+                                                        <input type="radio" id="yes-kids" name="kids" value={1} className="mr-2"
+                                                            onChange={() => setChecklist(prev => ({ ...prev, kids: true }))} />Yes
+                                                    </label>
+                                                </div>
+                                                <div className="px-2 w-1/3">
+                                                    <label htmlFor="no-kids" className="block text-gray-700 font-medium mb-2">
+                                                        <input type="radio" id="no-kids" name="kids" value={0} className="mr-2"
+                                                            onChange={() => setChecklist(prev => ({ ...prev, kids: false }))}
+                                                            defaultChecked={true}/>No
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </>
+                                }
+                                <div className="flex justify-end">
+                                    <button type="submit" className="px-6 py-2 bg-indigo-500 text-white font-semibold rounded-md hover:bg-indigo-600 focus:outline-none">Submit</button>
                                 </div>
                             </form>
                         </div>
