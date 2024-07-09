@@ -1,6 +1,6 @@
 
 import Link from "next/link";
-import { HCAMI, Pedro } from "./constants/CollageIcons";
+import { HCAMI, ISIY, Pedro } from "./constants/CollageIcons";
 import { Collage } from "./components/collage/Collage";
 
 export default function Home() {
@@ -17,6 +17,9 @@ export default function Home() {
             </Link>
             <Link href="/pedro">
               <Collage {...Pedro} />
+            </Link>
+            <Link href="/issheintoyou">
+              <Collage {...ISIY} />
             </Link>
           </div>
         </div>
