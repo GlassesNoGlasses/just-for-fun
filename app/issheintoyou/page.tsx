@@ -84,7 +84,7 @@ export default function Home() {
                                         <div className="px-2 w-1/3">
                                             <label htmlFor="cant-tell" className="block text-gray-700 font-medium mb-2">
                                                 <input type="radio" id="cant-tell" name="intoThem" value={-1} className="mr-2"
-                                                    onChange={(event) => setChecklist(prev => ({ ...prev, intoThem: Number(event.target.value) }))} />Can't Tell
+                                                    onChange={(event) => setChecklist(prev => ({ ...prev, intoThem: Number(event.target.value) }))} />Can&apos;t Tell
                                             </label>
                                         </div>
                                     </div>
@@ -252,7 +252,7 @@ export default function Home() {
                 animate-fade-down">
                     <div className="flex h-fit w-full flex-col gap-4 align-middle justify-center">
                         <h1 className="text-center text-6xl font-mono underline mt-12">So, Is She Into You?</h1>
-                        <h2 className="text-center text-4xl font-mono text-pink-300">Answer: Can't Really Tell</h2>
+                        <h2 className="text-center text-4xl font-mono text-pink-300">Answer: Can&apos;t Really Tell</h2>
                         <p className="text-center text-xl font-mono px-8">{ISIYChecklistResponses(checklist)}</p>
                     </div>
                 </div>
