@@ -1,6 +1,6 @@
 
 import Link from "next/link";
-import { HCAMI, Pedro } from "./constants/CollageIcons";
+import { HCAMI, ISIY, Pedro } from "./constants/CollageIcons";
 import { Collage } from "./components/collage/Collage";
 
 export default function Home() {
@@ -12,12 +12,18 @@ export default function Home() {
             Just For Fun
           </h1>
           <div className="flex flex-row gap-12 h-fit w-full align-middle justify-center">
-            <Link href="/howcookedami">
-              <Collage {...HCAMI} />
-            </Link>
             <Link href="/pedro">
               <Collage {...Pedro} />
             </Link>
+            <Link href="/issheintoyou">
+              <Collage {...ISIY} />
+            </Link>
+          </div>
+          <h1 className="text-center text-5xl font-mono underline mt-12">
+            Coming Soon...
+          </h1>
+          <div className="flex flex-row gap-12 h-fit w-full align-middle justify-center">
+              <Collage {...HCAMI} />
           </div>
         </div>
       </div>

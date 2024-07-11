@@ -9,3 +9,8 @@ export const Pedro: CollageProps = {
     title: "Pedro",
     bgDisplay: "bg-pedro",
 };
+
+export const ISIY: CollageProps = {
+    title: "Is She Into You?",
+    bgDisplay: "bg-isiy",
+};

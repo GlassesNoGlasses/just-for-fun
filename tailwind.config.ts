@@ -8,12 +8,17 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        "main": "#1d4d6f",
+      },
+
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "chef": "url('/images/kind_chef.jpeg')",
         "pedro": "url('/images/pedro.jpeg')",
+        "isiy": "url('/images/cant-tell.jpeg')",
       },
 
       keyframes: {
@@ -31,6 +36,8 @@ const config: Config = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwindcss-animated'),
+  ],
 };
 export default config;
