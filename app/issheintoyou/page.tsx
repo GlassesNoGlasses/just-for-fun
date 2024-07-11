@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from "react";
-import {ISIYChecklist} from "../interfaces/ISIYChecklist";
+import {ISIYChecklist, ISIYChecklistResponses} from "../interfaces/ISIYChecklist";
 
 export default function Home() {
 
@@ -14,23 +14,24 @@ export default function Home() {
         kissed: false,
         Netflixed: false,
         couple: false,
-        fiances: false,
         married: false,
         kids: false,
     }
 
     const [findOut, setFindOut] = useState<boolean>(false);
     const [checklist, setChecklist] = useState<ISIYChecklist>(defaultChecklist);
+    const [submitted, setSubmitted] = useState<boolean>(false);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(checklist)
         console.log('submitted');
+        setSubmitted(true);
     }
 
     return (
-        <main className="h-screen w-screen">
-            <div className="flex flex-col h-full w-full bg-main overflow-y-scroll">
+        <main className="h-screen w-screen flex relative z-0">
+            <div className="flex flex-col h-full w-full bg-main overflow-y-scroll z-0">
                 <div className="flex flex-col gap-8 h-full w-full justify-center align-middle">
                     <h1 className="text-center text-6xl font-mono underline">Is She Into You?</h1>
                     <a href="https://www.youtube.com/@CasuallyExplained" target="_blank">
@@ -47,6 +48,7 @@ export default function Home() {
                             &#8595;
                         </span>
                     </div>
+                    <br className="flex w-full h-full" />
                 </div>
                 {
                     findOut &&
@@ -201,24 +203,6 @@ export default function Home() {
                                             </div>
                                         </div>
                                         <div className="w-full">
-                                            <label className="block text-gray-700 font-medium mb-2">Are You Fiances Or Similar?</label>
-                                            <div className="flex flex-wrap">
-                                                <div className="px-2 w-1/3">
-                                                    <label htmlFor="yes-fiances" className="block text-gray-700 font-medium mb-2">
-                                                        <input type="radio" id="yes-fiances" name="fiances" value={1} className="mr-2"
-                                                            onChange={() => setChecklist(prev => ({ ...prev, fiances: true }))} />Yes
-                                                    </label>
-                                                </div>
-                                                <div className="px-2 w-1/3">
-                                                    <label htmlFor="no-fiances" className="block text-gray-700 font-medium mb-2">
-                                                        <input type="radio" id="no-fiances" name="fiances" value={0} className="mr-2"
-                                                            onChange={() => setChecklist(prev => ({ ...prev, fiances: false }))}
-                                                            defaultChecked={true}/>No
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="w-full">
                                             <label className="block text-gray-700 font-medium mb-2">Are You Married Or Similar?</label>
                                             <div className="flex flex-wrap">
                                                 <div className="px-2 w-1/3">
@@ -264,6 +248,17 @@ export default function Home() {
                     </div>
                 }
             </div>
+            {
+                submitted &&
+                <div className="flex h-full w-full absolute bg-black align-bottom justify-center z-10
+                animate-fade-down">
+                    <div className="flex h-fit w-full flex-col gap-4 align-middle justify-center">
+                        <h1 className="text-center text-6xl font-mono underline mt-12">So, Is She Into You?</h1>
+                        <h2 className="text-center text-4xl font-mono text-pink-300">Answer: Can't Really Tell</h2>
+                        <p className="text-center text-xl font-mono px-8">{ISIYChecklistResponses(checklist)}</p>
+                    </div>
+                </div>
+            }
         </main>
     )
 }
