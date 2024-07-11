@@ -2,6 +2,8 @@
 
 Fun sleep-deprived web application ideas I have...
 
+Link: https://just-for-fun-chi.vercel.app/
+
 ## Current Applications:
 
 ### Pedro... Enough said...
