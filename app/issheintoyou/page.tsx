@@ -24,8 +24,6 @@ export default function Home() {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(checklist)
-        console.log('submitted');
         setSubmitted(true);
     }
 
