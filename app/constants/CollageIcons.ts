@@ -17,3 +17,9 @@ export const ISIY: CollageProps = {
     bgDisplay: "bg-isiy",
     active: true,
 };
+
+export const ApplicationSimulator: CollageProps = {
+    title: "Job Market LMAO",
+    bgDisplay: "bg-application-simulator",
+    active: true,
+}
