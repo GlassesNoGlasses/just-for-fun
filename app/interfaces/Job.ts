@@ -1,23 +1,35 @@
 
-export enum JobType {
-    SOFTWARE_DEVELOPER = "Software Developer",
-    AI_DEVELOPER = "AI Developer",
-    DEVELOPER = "Developer",
-    SOFTWARE_ENGINEER = "Software Engineer",
-    MACHINE_LEARNING_ENGINEER = "Machine Learning Engineer",
-    QA = "QA Engineer",
-    ENGINEER = "Engineer",
-    DATA_SCIENTIST = "Data Scientist",
-    DATA_ANALYST = "Data Analyst",
-    FRONTEND_DEVELOPER = "Frontend Developer",
-    BACKEND_DEVELOPER = "Backend Developer",
-    FULL_STACK_DEVELOPER = "Full Stack Developer",
-    WEB_DEVELOPER = "Web Developer",
-    MOBILE_DEVELOPER = "Mobile Developer",
-    GAME_DEVELOPER = "Game Developer",
-    UX_DESIGNER = "UX Designer",
-    UI_DESIGNER = "UI Designer",
+export enum JobTitlePrimary {
+    MACHINE_LEARNING = "Machine Learning",
+    FULL_STACK = "Full Stack",
+    SOFTWARE = "Software",
+    FRONTEND = "Frontend",
+    BACKEND = "Backend",
+    MOBILE = "Mobile",
+    DATA = "Data",
+    GAME = "Game",
+    WEB = "Web",
+    UX = "UX",
+    UI = "UI",
+    AI = "AI",
+    QA = "QA",
+}
+
+export enum JobTitleSecondary {
     DESIGNER = "Designer",
+    DEVELOPER = "Developer",
+    ENGINEER = "Engineer",
+    SCIENTIST = "Scientist",
+    ANALYST = "Analyst",
+}
+
+export enum JobType {
+    INTERN = "Intern",
+    FULL_TIME = "Full-Time",
+    PART_TIME = "Part-Time",
+    CONTRACT = "Contract",
+    TEMPORARY = "Temporary",
+    REMOTE = "Remote",
 }
 
 export interface Job {
