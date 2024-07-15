@@ -1,3 +1,4 @@
+import { Item } from "./Item";
 
 export enum JobTitlePrimary {
     MACHINE_LEARNING = "Machine Learning",
@@ -32,8 +33,7 @@ export enum JobType {
     REMOTE = "Remote",
 }
 
-export interface Job {
-    title: string;
+export interface Job extends Item {
     jobType: string; // internship, full-time, part-time, etc.
     company: string;
     location: string

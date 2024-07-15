@@ -115,7 +115,7 @@ const GetQualifications = (qualificationList: string[]): string[] => {
 }
 
 
-const GetJob = (): Job => {
+export const CreateJob = (): Job => {
     const salaries: [number, number] = GetSalary();
     return {
         title: GetPrimaryJobTitle() + " " + GetSecondaryJobTitle(),
