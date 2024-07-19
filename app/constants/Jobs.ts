@@ -21,7 +21,23 @@ const Qualifications: string[] = [
 ]
 
 const DesiredQualifications: string[] = [
-
+    "Experience developing OpenAI products",
+    "Experience with Quantum Edge Computing",
+    "Developed or contributed to NASA's next space shuttle",
+    "Able to find a needle in a haystack",
+    "Min-maxing the joy out of life",
+    "Able to quit Vim",
+    "Sort lists in O(1) time",
+    "Touch Grass",
+    "Able to write code without StackOverflow or Chat-GPT",
+    "Able to write code without a keyboard",
+    "Perform a real-life TLShandshake",
+    "Create a new programming language as a hobby",
+    "Train AI models without data",
+    "Create Chat-GPT from scratch",
+    "Write a new OS in Assembly",
+    "Untangle spaghetti code",
+    "Perform multi-threading with a single thread",
 ]
 
 const EnumMap: { [key: number]: typeof JobTitlePrimary | typeof JobTitleSecondary | typeof JobType } = {
@@ -90,8 +106,8 @@ const GetApplicants = (): number => {
 }
 
 const GetSalary = (): [number, number] => {
-    const min: number = Math.floor(Math.random() * 100000);
-    const max: number = min + Math.floor(Math.random() * 100000);
+    const min: number = Math.max(Math.floor(Math.random() * 10000) - 9000, 0);
+    const max: number = min + Math.min(Math.floor(Math.random() * 10000), 200);
     return [min, max];
 }
 
@@ -104,7 +120,7 @@ const GetDescription = (): string => {
 }
 
 const GetQualifications = (qualificationList: string[]): string[] => {
-    const numQualifications: number = Math.max(3, Math.floor(Math.random() * 5) + 1);
+    const numQualifications: number = Math.max(2, Math.floor(Math.random() * 5) + 1);
     const qualifications: string[] = [];
 
     for (let i = 0; i < numQualifications; i++) {
