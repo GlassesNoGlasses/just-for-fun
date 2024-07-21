@@ -1,6 +1,6 @@
 
 import Link from "next/link";
-import { HCAMI, ISIY, Pedro } from "./constants/CollageIcons";
+import { ApplicationSimulator, HCAMI, ISIY, Pedro } from "./constants/CollageIcons";
 import { Collage } from "./components/collage/Collage";
 
 export default function Home() {
@@ -17,6 +17,9 @@ export default function Home() {
             </Link>
             <Link href="/issheintoyou">
               <Collage {...ISIY} />
+            </Link>
+            <Link href="application-simulator">
+              <Collage {...ApplicationSimulator} />
             </Link>
           </div>
           <h1 className="text-center text-5xl font-mono underline mt-12">

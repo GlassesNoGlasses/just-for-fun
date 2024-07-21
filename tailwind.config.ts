@@ -19,6 +19,7 @@ const config: Config = {
         "chef": "url('/images/kind_chef.jpeg')",
         "pedro": "url('/images/pedro.jpeg')",
         "isiy": "url('/images/cant-tell.jpeg')",
+        "application-simulator": "url('/images/applications-everywhere.jpeg')",
       },
 
       keyframes: {
