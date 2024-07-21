@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import { playAudio } from '../constants/SoundController';
 
 const pedroGif: string = "/gif/PEDRO.gif";
 
@@ -14,7 +15,6 @@ export default function Home() {
 
     const handlePedro = (status: number) => {
         setFedStatus(status);
-        const audio = document.getElementById('pedro-audio') as HTMLAudioElement;
 
         switch (status) {
             case 1:
@@ -38,8 +38,7 @@ export default function Home() {
     }
 
     useEffect(() => {
-        const audio = document.getElementById('pedro-audio') as HTMLAudioElement;
-        audio.play();
+        playAudio('pedro-audio');
     }, [pedroAudio])
 
   return (

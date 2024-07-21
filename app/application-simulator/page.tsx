@@ -27,7 +27,6 @@ export default function Home() {
     }
 
     const handleSlotsCallback = (result: [string, string, string]) => {
-        console.log(result);
         if (result[0] === result[1] && result[0] === result[2]) {
             setInterviewCount(prev => prev + 1);
             return;
