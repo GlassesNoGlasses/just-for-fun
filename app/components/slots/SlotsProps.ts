@@ -2,6 +2,8 @@ import { SlotReturn } from "@/app/constants/SlotManager";
 
 export default interface SlotsProps {
     title: string;
+    playable?: boolean;
     subtitle?: string;
-    callback: (result: SlotReturn) => void;
+    resultsCallback: (result: SlotReturn) => void;
+    exitCallback: () => void;
 }

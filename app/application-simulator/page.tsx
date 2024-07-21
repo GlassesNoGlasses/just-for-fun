@@ -6,6 +6,7 @@ import { CreateJob } from "../constants/Jobs";
 import { Carousel } from "../components/carousel/Carousel";
 import Image from "next/image";
 import { Slots } from "../components/slots/Slots";
+import { playAudio } from "../constants/SoundController";
 
 export default function Home() {
 
@@ -14,19 +15,8 @@ export default function Home() {
     const [currentJob, setCurrentJob] = useState<Job>(CreateJob());
     const [startSimulating, setStartSimulating] = useState<boolean>(false);
     const [interview, setInterview] = useState<boolean>(false);
+    const [interviewExists, setInterviewExists] = useState<boolean>(false);
     const [interviewCount, setInterviewCount] = useState<number>(1);
-
-    const playAudio = (id: string) => {
-        try {
-            const audio = document.getElementById(id) as HTMLAudioElement;
-            if (audio) {
-                audio.currentTime = 0;
-                audio.play();
-            }
-        } catch (error) {
-            console.warn("Could not play audio with id: ", id);
-        }
-    }
 
     const handleTitleEnd = () => {
         setStartSimulating(true);
@@ -45,10 +35,19 @@ export default function Home() {
             return;
         }
 
-        createNewJob();
+        setInterviewExists(false);
+    }
+
+    const handleCashOut = () => {
         setInterview(false);
         setInterviewCount(1);
-        playAudio("dangit");
+        createNewJob();
+    }
+    
+    const startSlots = () => {
+        setInterview(true);
+        setInterviewExists(true);
+        playAudio("gambling!");
     }
 
     return (
@@ -116,7 +115,7 @@ export default function Home() {
                         </div>
                         <div className="flex flex-col gap-8 w-1/6 h-fit align-middle justify-center">
                             <button className="hover:bg-pink-500 mx-16 rounded-md active:animate-jump active:animate-duration-500"
-                            onClick={() => setInterview(true)}>
+                            onClick={startSlots}>
                                 <span className="text-8xl hover:brightness-125">❤️</span>
                             </button>
                             <button className="hover:bg-slate-400 mx-16 rounded-md active:animate-duration-2000 active:animate-spin"
@@ -130,9 +129,14 @@ export default function Home() {
                     interview &&
                     <div className="flex absolute h-3/4 w-3/4 z-20 animate-fade-down justify-center align-middle">
                         <Slots
-                        title="You Got an Interview! Hit 3 of Anything to (potentially) Get a Job!"
+                        title={
+                            interviewCount <= 1 ? "You Got an Interview! Hit 3 of Anything to (potentially) Get a Job!"
+                            : "You Got Another Interview! Hit 3 of Anything to (potentially) Get a Job!"
+                        }
                         subtitle={`Interivew: ${interviewCount}`}
-                        callback={handleSlotsCallback}/>
+                        resultsCallback={handleSlotsCallback}
+                        exitCallback={handleCashOut}
+                        playable={interviewExists}/>
                     </div>
                 }
             </div>

@@ -3,16 +3,21 @@
 import { useEffect, useState } from "react";
 import SlotsProps from "./SlotsProps";
 import { GetIcons } from "@/app/constants/SlotManager";
+import { playAudio } from "@/app/constants/SoundController";
 
 export const Slots = ({
     title,
+    playable = true,
     subtitle = "",
-    callback,
+    resultsCallback,
+    exitCallback,
 }: SlotsProps) => {
 
-    const [spinnerOne, setSpinnerOne] = useState<string>("😭");
-    const [spinnerTwo, setSpinnerTwo] = useState<string>("📃");
-    const [spinnerThree, setSpinnerThree] = useState<string>("🙏");
+    const defaultIcons = ["😭", "📃", "🙏"];
+
+    const [spinnerOne, setSpinnerOne] = useState<string>(defaultIcons[0]);
+    const [spinnerTwo, setSpinnerTwo] = useState<string>(defaultIcons[1]);
+    const [spinnerThree, setSpinnerThree] = useState<string>(defaultIcons[2]);
     const [play, setPlay] = useState<boolean>(false);
     const [numSpins, setNumSpins] = useState<number>(0);
 
@@ -27,6 +32,7 @@ export const Slots = ({
     }
 
     const spin = () => {
+        playAudio("slots");
         setPlay(true);
         const getSlotIcons = () => {
             const icons = GetIcons();
@@ -35,19 +41,20 @@ export const Slots = ({
             setSpinnerThree(icons[2]);
         }
 
-        setIntervalX(getSlotIcons, 100, 15);
+        setIntervalX(getSlotIcons, 100, 20);
         setNumSpins(numSpins + 1);
         setPlay(false);
+        resultsCallback([spinnerOne, spinnerTwo, spinnerThree]);
     }
 
-    useEffect(() => {
-        if (numSpins > 0)
-            callback([spinnerOne, spinnerTwo, spinnerThree]);
-    }, [numSpins])
+    const cashOut = () => {
+        setNumSpins(0);
+        exitCallback();
+    }
 
   return (
     <div className="flex h-full w-full bg-yellow-100 border-black border-double border-4 rounded-lg align-middle justify-center">
-        <audio id="slots"/>
+        <audio src="/sounds/casino.mp3" id="slots"/>
         <div className="flex flex-col gap-8 items-center justify-center h-full w-full">
             <span className="text-center text-black font-black text-4xl">
             {title}
@@ -56,21 +63,30 @@ export const Slots = ({
             {subtitle}
             </span>
             <div className="flex flex-row gap-12 h-fit w-full justify-center align-middle">
-                <span className={`text-7xl ${play && "animate-flip-up animate-infinite animate-duration-75"}`}>
+                <span className={`text-7xl border-black border-4 border-solid ${play && "animate-flip-up animate-infinite animate-duration-75"}`}>
                     {spinnerOne}
                 </span>
-                <span className={`text-7xl ${play && "animate-flip-up animate-infinite animate-duration-75 animate-delay-75"}`}>
+                <span className={`text-7xl border-black border-4 border-solid ${play && "animate-flip-up animate-infinite animate-duration-75 animate-delay-75"}`}>
                     {spinnerTwo}
                 </span>
-                <span className={`text-7xl ${play && "animate-flip-up animate-infinite animate-duration-75 animate-delay-100"}`}>
+                <span className={`text-7xl border-black border-4 border-solid ${play && "animate-flip-up animate-infinite animate-duration-75 animate-delay-100"}`}>
                     {spinnerThree}
                 </span>
             </div>
-            <button onClick={!play ? spin : () => alert("Spinning!")}>
-                <span className="text-7xl text-center">
-                    🎰
-                </span>
-            </button>
+            {
+                playable ?
+                <button onClick={!play ? spin : () => alert("Spinning!")}>
+                    <span className="text-7xl text-center hover:brightness-125">
+                        🎰
+                    </span>
+                </button>
+                :
+                <button onClick={cashOut}>
+                    <span className="text-7xl text-center hover:brightness-125">
+                        🚫
+                    </span>
+                </button>
+            }
         </div>
     </div>
   )
