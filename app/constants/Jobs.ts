@@ -95,9 +95,13 @@ const GetPosted = (): string => {
         return "1 Week Ago";
     } else if (prob <= 0.5) {
         return "2 Weeks Ago";
+    } else if (prob <= 0.6) {
+        return "LMAO don't even think about it";
+    } else if (prob <= 0.7) {
+        return "Should've applied in 2021";
     }
 
-    return "You're too late bud"
+    return "You're too late bud";
 }
 
 const GetApplicants = (): number => {
@@ -112,6 +116,10 @@ const GetSalary = (): [number, number] => {
 }
 
 const GetDescription = (): string => {
+    if (Math.floor(Math.random() * 10) < 2) {
+        return "Just give up lil bro..."
+    }
+
     return `We are seeking a motivated and enthusiastic Intern to join our team. 
     This internship provides an excellent opportunity for students or recent graduates to gain hands-on experience
     in software development, work with experienced professionals, and contribute to real-world projects. 

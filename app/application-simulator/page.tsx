@@ -5,6 +5,7 @@ import { Job } from "../interfaces/Job";
 import { CreateJob } from "../constants/Jobs";
 import { Carousel } from "../components/carousel/Carousel";
 import Image from "next/image";
+import { Slots } from "../components/slots/Slots";
 
 export default function Home() {
 
@@ -12,37 +13,53 @@ export default function Home() {
 
     const [currentJob, setCurrentJob] = useState<Job>(CreateJob());
     const [startSimulating, setStartSimulating] = useState<boolean>(false);
-    const [soundPath, setSoundPath] = useState<string>("");
+    const [interview, setInterview] = useState<boolean>(false);
+    const [interviewCount, setInterviewCount] = useState<number>(1);
+
+    const playAudio = (id: string) => {
+        try {
+            const audio = document.getElementById(id) as HTMLAudioElement;
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play();
+            }
+        } catch (error) {
+            console.warn("Could not play audio with id: ", id);
+        }
+    }
 
     const handleTitleEnd = () => {
         setStartSimulating(true);
-        setSoundPath("/sounds/gamble-gamble.mp3");
+        playAudio("gambling!");
     }
 
     const createNewJob = () => {
         setCurrentJob(CreateJob());
+        playAudio("dangit");
     }
 
-    // play audio
-    useEffect(() => {
-        console.log(soundPath);
-        const audio = document.getElementById("simulation") as HTMLAudioElement;
-        if (audio && soundPath) 
-            audio.play();
-    }, [soundPath])
+    const handleSlotsCallback = (result: [string, string, string]) => {
+        console.log(result);
+        if (result[0] === result[1] && result[0] === result[2]) {
+            setInterviewCount(prev => prev + 1);
+            return;
+        }
+
+        createNewJob();
+        setInterview(false);
+        setInterviewCount(1);
+        playAudio("dangit");
+    }
 
     return (
         <main className="w-screen h-screen">
-            <div className="flex flex-col w-full h-full bg-main justify-center items-center overflow-auto">
-                <audio src={soundPath} id="simulation"/>
+            <div className="flex flex-row w-full h-full bg-main justify-center items-center overflow-auto">
+                <audio src="/sounds/gamble-gamble.mp3" id="gambling!"/>
+                <audio src="/sounds/dangit.mp3" id="dangit"/>
                 {
                     !startSimulating ?
                     TitleScreen(() => handleTitleEnd()) :
                     <>
-                        <button
-                        className='flex w-1/8 h-full'>
-                            &#8592;
-                        </button>
                         <div className="flex flex-col gap-2 bg-white w-3/4 h-5/6 overflow-auto border-sky-600 border-4 rounded-md">     
                             <div className="flex flex-row h-fit w-full align-middle items-center justify-center">
                                 <Image
@@ -97,9 +114,26 @@ export default function Home() {
                                 })}
                             </ul>
                         </div>
-                        <div className="flex w-3/4 h-fit align-middle just">
+                        <div className="flex flex-col gap-8 w-1/6 h-fit align-middle justify-center">
+                            <button className="hover:bg-pink-500 mx-16 rounded-md active:animate-jump active:animate-duration-500"
+                            onClick={() => setInterview(true)}>
+                                <span className="text-8xl hover:brightness-125">❤️</span>
+                            </button>
+                            <button className="hover:bg-slate-400 mx-16 rounded-md active:animate-duration-2000 active:animate-spin"
+                            onClick={createNewJob}>
+                                <span className="text-8xl hover:brightness-125">🔄</span>
+                            </button>
                         </div>
                     </>
+                }
+                {
+                    interview &&
+                    <div className="flex absolute h-3/4 w-3/4 z-20 animate-fade-down justify-center align-middle">
+                        <Slots
+                        title="You Got an Interview! Hit 3 of Anything to (potentially) Get a Job!"
+                        subtitle={`Interivew: ${interviewCount}`}
+                        callback={handleSlotsCallback}/>
+                    </div>
                 }
             </div>
         </main>
