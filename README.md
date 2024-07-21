@@ -18,6 +18,13 @@ Got a special someone in mind? Can't tell if she's into you? Find out through th
 ![cant-tell](https://github.com/GlassesNoGlasses/just-for-fun/assets/59126714/bfe0a7dd-6955-437c-b395-9cc358eb31ba)
 
 
+### Job Market LMAO
+
+A realistic depiction of a normie CS student/newgrad trying to get an internship/entry-level-job in the tech job market right now.
+
+![image](https://github.com/user-attachments/assets/d588380c-b358-4616-8c20-d7d0f9e2868b)
+
+
 ## Coming Soon!
 
 ### How Cooked Am I?
