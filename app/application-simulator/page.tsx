@@ -10,8 +10,6 @@ import { playAudio } from "../constants/SoundController";
 
 export default function Home() {
 
-    const numJobs = 10;
-
     const [currentJob, setCurrentJob] = useState<Job>(CreateJob());
     const [startSimulating, setStartSimulating] = useState<boolean>(false);
     const [interview, setInterview] = useState<boolean>(false);

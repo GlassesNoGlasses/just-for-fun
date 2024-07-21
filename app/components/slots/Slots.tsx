@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import SlotsProps from "./SlotsProps";
-import { GetIcons } from "@/app/constants/SlotManager";
+import { GetIcons, SlotReturn } from "@/app/constants/SlotManager";
 import { playAudio } from "@/app/constants/SoundController";
 
 export const Slots = ({
@@ -18,15 +18,17 @@ export const Slots = ({
     const [spinnerOne, setSpinnerOne] = useState<string>(defaultIcons[0]);
     const [spinnerTwo, setSpinnerTwo] = useState<string>(defaultIcons[1]);
     const [spinnerThree, setSpinnerThree] = useState<string>(defaultIcons[2]);
+    const [results, setResults] = useState<SlotReturn>([spinnerOne, spinnerTwo, spinnerThree]);
     const [play, setPlay] = useState<boolean>(false);
     const [numSpins, setNumSpins] = useState<number>(0);
 
-    const setIntervalX = (callback: () => void, delay: number, repetitions: number) => {
+    const setIntervalX = (callback: () => void, delay: number, repetitions: number, endCallback: () => void) => {
         let x = 0;
         let intervalID = setInterval(() => {
             callback();
             if (++x >= repetitions) {
                 clearInterval(intervalID);
+                endCallback();
             }
         }, delay);
     }
@@ -34,6 +36,7 @@ export const Slots = ({
     const spin = () => {
         playAudio("slots");
         setPlay(true);
+        
         const getSlotIcons = () => {
             const icons = GetIcons();
             setSpinnerOne(icons[0]);
@@ -41,11 +44,20 @@ export const Slots = ({
             setSpinnerThree(icons[2]);
         }
 
-        setIntervalX(getSlotIcons, 100, 20);
-        setNumSpins(numSpins + 1);
-        setPlay(false);
-        resultsCallback([spinnerOne, spinnerTwo, spinnerThree]);
+        const endCallback = () => {
+            setNumSpins(prev => prev + 1);
+            setPlay(false);
+            setResults([spinnerOne, spinnerTwo, spinnerThree]);
+        }
+
+        setIntervalX(getSlotIcons, 100, 20, endCallback);
     }
+
+    useEffect(() => {
+        if (!play && numSpins > 0) {
+            resultsCallback([spinnerOne, spinnerTwo, spinnerThree]);
+        }
+    }, [results])
 
     const cashOut = () => {
         setNumSpins(0);
@@ -75,7 +87,7 @@ export const Slots = ({
             </div>
             {
                 playable ?
-                <button onClick={!play ? spin : () => alert("Spinning!")}>
+                <button onClick={!play ? spin : () => alert("Spinning! -10 Aura")}>
                     <span className="text-7xl text-center hover:brightness-125">
                         🎰
                     </span>
