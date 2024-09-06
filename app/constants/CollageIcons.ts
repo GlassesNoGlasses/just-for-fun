@@ -23,3 +23,9 @@ export const ApplicationSimulator: CollageProps = {
     bgDisplay: "bg-application-simulator",
     active: true,
 }
+
+export const Gamers: CollageProps = {
+    title: "Gamers Only",
+    bgDisplay: "bg-chef",
+    active: true
+}
